@@ -7,7 +7,6 @@
 #include <QNetworkReply>
 #include <QUrl>
 
-
 class GithubRequestHandler : public QObject
 {
     Q_OBJECT
@@ -21,7 +20,7 @@ private slots:
 signals:
 
 private:
-    QUrl m_url;
+    QUrl m_githubStatusURL;
     QNetworkReply *reply;
 };
 

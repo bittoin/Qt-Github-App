@@ -6,11 +6,12 @@
 #include <QJsonArray>
 
 GithubRequestHandler::GithubRequestHandler(QObject *parent)
-    : QObject{parent}
+    : QObject{parent},
+      m_githubStatusURL("https://www.githubstatus.com/api/v2/components.json")
 {
     QNetworkRequest request;
     //request.setUrl(QUrl("https://www.githubstatus.com/"));
-    request.setUrl(QUrl("https://www.githubstatus.com/api/v2/components.json"));
+    request.setUrl(m_githubStatusURL);
     //request.setRawHeader("User-Agent", "MyOwnBrowser 1.0");
 
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
@@ -33,7 +34,7 @@ void GithubRequestHandler::replyFinished(QNetworkReply *reply)
     QJsonArray components = jsonReply["components"].toArray();
 
     for (auto item: components){
-        qDebug() << item.toObject()["name"].toString();
+        qDebug() << item.toObject()["name"].toString() << " : " << item.toObject()["status"].toString();
     }
 }
 
